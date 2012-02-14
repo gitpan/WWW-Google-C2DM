@@ -10,7 +10,7 @@ use LWP::Protocol::https;
 use WWW::Google::C2DM::Response;
 
 use 5.008_001;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 our $URL = 'https://android.apis.google.com/c2dm/send';
 
@@ -93,14 +93,14 @@ WWW::Google::C2DM - Google C2DM Client
       collapse_key    => $collapse_key,
       'data.message'  => $message,
   );
-  die $res->error_code if $res->has_error;
+  die $res->error_code if $res->is_error;
   my $id = $res->id;
 
 =head1 DESCRIPTION
 
 WWW::Google::C2DM is HTTP Client for Google C2DM service.
 
-SEE ALSO L<< http://code.google.com/intl/ja/android/c2dm/ >>
+SEE ALSO L<< http://code.google.com/intl/us/android/c2dm/ >>
 
 =head1 METHODS
 
@@ -136,7 +136,7 @@ Send to C2DM. Returned values is L<< WWW::Google::C2DM::Response >> object.
       delay_while_idle => $bool,
   );
 
-  say $res->error_code if $res->has_error;
+  say $res->error_code if $res->is_error;
 
 Supported parameters are:
 
@@ -185,7 +185,7 @@ Or you can specify both option.
 
 =back
 
-SEE ALSO L<< http://code.google.com/intl/ja/android/c2dm/#push >>
+SEE ALSO L<< http://code.google.com/intl/us/android/c2dm/#push >>
 
 =head1 AUTHOR
 
