@@ -10,7 +10,7 @@ use LWP::Protocol::https;
 use WWW::Google::C2DM::Response;
 
 use 5.008_001;
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 our $URL = 'https://android.apis.google.com/c2dm/send';
 
@@ -18,7 +18,7 @@ sub new {
     my ($class, %args) = @_;
     croak "Usage: $class->new(auth_token => \$auth_token)" unless $args{auth_token};
     $args{ua} ||= LWP::UserAgent->new(agent => __PACKAGE__.' / '.$VERSION);
-    if ($args{ua}->isa('LWP::UserAgent')) {
+    if ($args{ua}->isa('LWP::UserAgent') && $LWP::UserAgent::VERSION >= 6.00) {
         $args{ua}->ssl_opts(verify_hostname => 0);
     }
     bless { %args }, $class;
