@@ -34,4 +34,4 @@ resources:
   bugtracker: http://github.com/xaicron/p5-WWW-Google-C2DM/issues
   license: http://dev.perl.org/licenses/
   repository: http://github.com/xaicron/p5-WWW-Google-C2DM/
-version: 0.04
+version: 0.05

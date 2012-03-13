@@ -6,11 +6,12 @@ use Carp qw(croak);
 use HTTP::Request;
 use LWP::UserAgent;
 use LWP::Protocol::https;
+use URI;
 
 use WWW::Google::C2DM::Response;
 
 use 5.008_001;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 our $URL = 'https://android.apis.google.com/c2dm/send';
 
@@ -37,7 +38,10 @@ sub send {
     my $req = HTTP::Request->new(POST => $URL);
     $req->header('Content-Type' => 'application/x-www-form-urlencoded');
     $req->header(Authorization  => 'GoogleLogin auth='.$self->{auth_token});
-    $req->content(join '&', map { $_.'='.$args{$_} } keys %args);
+
+    my $uri = URI->new('http://');
+    $uri->query_form(\%args);
+    $req->content($uri->query);
 
     my $http_response = $self->{ua}->request($req);
 
