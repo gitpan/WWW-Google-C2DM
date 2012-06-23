@@ -11,7 +11,7 @@ use URI;
 use WWW::Google::C2DM::Response;
 
 use 5.008_001;
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 our $URL = 'https://android.apis.google.com/c2dm/send';
 
@@ -28,7 +28,7 @@ sub new {
 sub send {
     my ($self, %args) = @_;
     croak 'Usage: $self->send(registration_id => $reg_id, collapse_key => $collapse_key)'
-        unless $args{registration_id} && $args{collapse_key};
+        unless $args{registration_id} && defined $args{collapse_key} && length $args{collapse_key};
 
     if (my $data = delete $args{data}) {
         croak 'data parameter must be HASHREF' unless ref $data eq 'HASH';
